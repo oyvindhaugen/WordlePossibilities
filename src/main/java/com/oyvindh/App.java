@@ -17,6 +17,7 @@ public class App {
         System.out.println(listOfLines.size());
         removeLetter();
     }
+
     void readFileToList() {
         try {
             listOfLines.clear();
@@ -33,24 +34,44 @@ public class App {
         }
         printSize();
     }
+
     void removeLetter() {
         Scanner s = new Scanner(System.in);
         System.out.println("What letter is not in the word? ");
         String inputLetter = s.nextLine();
+
+        System.out.println("Where in the word is it? (0-4): ");
+        String indexOfLetter = s.nextLine();
+        System.out.println("Is the letter in the word at all? y/n ");
+        String isLetterInWord = s.nextLine();
+        int indexOfLetterInt = Integer.parseInt(indexOfLetter);
         int numbers = 0;
-        while (numbers !=  listOfLines.size()) {
-            if (listOfLines.get(numbers).contains(inputLetter)) {
-                //System.out.println(listOfLines.get(numbers));
-                listOfLines.remove(numbers);
-            } else {
-            numbers++;
-        }
+        if (isLetterInWord.equalsIgnoreCase("n")) {
+
+            while (numbers != listOfLines.size()) {
+                String word = listOfLines.get(numbers);
+                if (word.contains(inputLetter)) {
+                    listOfLines.remove(numbers);
+                } else {
+                    numbers++;
+                }
+            }
+        } else {
+            while (numbers != listOfLines.size()) {
+                String word = listOfLines.get(numbers);
+                if (word.indexOf(inputLetter) == indexOfLetterInt) {
+                    listOfLines.remove(numbers);
+                } else {
+                    numbers++;
+                }
+            }
         }
         System.out.println(listOfLines.size());
         runAgain();
 
     }
-    void runAgain(){
+
+    void runAgain() {
         System.out.println("Do you wanna continue? y/n ");
         Scanner s = new Scanner(System.in);
         String answer = s.nextLine();
